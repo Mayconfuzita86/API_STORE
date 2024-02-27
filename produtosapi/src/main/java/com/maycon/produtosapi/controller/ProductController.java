@@ -23,6 +23,16 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.findById(id));
     }
 
+    @GetMapping(value = "/search/{name}")
+    public ResponseEntity<List<ProductResponseDTO>> findByName(@PathVariable(name = "name") String name ) {
+        return ResponseEntity.ok().body(productService.findByName(name));
+    }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<ProductResponseDTO>> searchAll() {
+        return ResponseEntity.ok().body(productService.findAll());
+    }
+
     @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> findAll() {
         return ResponseEntity.ok().body(productService.findAll());
@@ -37,11 +47,6 @@ public class ProductController {
 
         return ResponseEntity.created(uri).body(productResponseDTO);
     }
-
-    //@PutMapping(value = "/{id}")
-    //public ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id) {
-    //    return ResponseEntity.ok().body(productService.update(id,productDTO));
-    //}
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id) {

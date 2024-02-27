@@ -31,10 +31,10 @@ public class ProductMapper {
 
     public void updateProductData(Product product, ProductRequestDTO productDTO){
 
-        product.setName(product.getName());
-        product.setQuantity(product.getQuantity());
-        product.setPrice(product.getPrice());
-        product.setImage(product.getImage());
+        product.setName(productDTO.getName());
+        product.setQuantity(productDTO.getQuantity());
+        product.setPrice(productDTO.getPrice());
+       //product.setImage(productDTO.getImage());
     }
 
 }

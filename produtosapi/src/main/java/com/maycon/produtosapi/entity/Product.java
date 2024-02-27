@@ -21,18 +21,14 @@ public class Product {
     private Integer quantity;
     @Column(name = "price", nullable = false)
     private double price;
-    private String image;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
+    private Image image;
 
     @Builder
-    public Product(String name, Integer quantity, double price, String image) {
+    public Product(String name, Integer quantity, double price, Image image) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
         this.image = image;
     }
 }
-
-
-
-//Produto deve ter nome, preço, quantidade e foto(s)
-//Cadastro de produtos deve ter campos obrigatórios(nome, preço, quantidade)

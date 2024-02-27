@@ -12,11 +12,15 @@ public class ProductResponseDTO {
     private double price;
     private String image;
 
-    public ProductResponseDTO(Product products){
-        this.id = products.getId();
-        this.name = products.getName();
-        this.quantity = products.getQuantity();
-        this.price = products.getPrice();
-        this.image = products.getImage();
+    public ProductResponseDTO(Product product){
+        this.id = product.getId();
+        this.name = product.getName();
+        this.quantity = product.getQuantity();
+        this.price = product.getPrice();
+        if (product.getImage() != null) {
+            this.image = product.getImage().getName();
+        } else {
+            this.image = null;
+        }
     }
 }
