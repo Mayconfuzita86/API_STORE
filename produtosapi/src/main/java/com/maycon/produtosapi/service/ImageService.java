@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.UUID;
 
 @Service
@@ -31,8 +32,8 @@ public class ImageService {
         return imageMapper.toImageDTO(this.coreCreateImage(file));
     }
 
-    private Image coreCreateImage(MultipartFile file) {
-        if (file.isEmpty()) {
+    public Image coreCreateImage(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
             throw new RuntimeException("Por favor, selecione um arquivo para enviar.");
         }
 
@@ -69,9 +70,13 @@ public class ImageService {
             // Gerar um nome único para o arquivo
             String uniqueFileName = makeUniqueImageName();
 
+            if (Files.notExists(Paths.get(UPLOAD_DIR))) {
+                Files.createDirectories(Paths.get(UPLOAD_DIR));
+            }
+
             // Salvar o arquivo para o diretório especificado
             Path path = Paths.get(UPLOAD_DIR).resolve(uniqueFileName);
-            Files.write(path, file);
+            Files.write(path, file, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
 
             //Files.write(Paths.get(UPLOAD_DIR).resolve(uniqueFileName), file);
 

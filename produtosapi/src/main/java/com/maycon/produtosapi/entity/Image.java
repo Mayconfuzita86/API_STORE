@@ -22,8 +22,7 @@ public class Image {
     @Column(name = "name", unique = true)
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "product_id")
+    @OneToOne(mappedBy = "image")
     private Product product;
 
 }

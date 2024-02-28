@@ -1,11 +1,14 @@
 package com.maycon.produtosapi.controller;
 
 import com.maycon.produtosapi.dto.request.ProductRequestDTO;
+import com.maycon.produtosapi.dto.request.PurchaseRequestDTO;
 import com.maycon.produtosapi.dto.response.ProductResponseDTO;
+import com.maycon.produtosapi.dto.response.PurchaseResponseDTO;
 import com.maycon.produtosapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -39,9 +42,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponseDTO> register(@RequestBody ProductRequestDTO productRequestDTO, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ProductResponseDTO> register(@RequestPart("productData") ProductRequestDTO productRequestDTO,
+                                                       UriComponentsBuilder uriBuilder, @RequestPart("image") MultipartFile image) {
 
-        ProductResponseDTO productResponseDTO = productService.register(productRequestDTO);
+        ProductResponseDTO productResponseDTO = productService.register(productRequestDTO, image);
 
         URI uri = uriBuilder.path("/product/{id}").buildAndExpand(productResponseDTO.getId()).toUri();
 
@@ -51,6 +55,11 @@ public class ProductController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id) {
         return ResponseEntity.ok().body(productService.update(id,productDTO));
+    }
+
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<PurchaseResponseDTO> purchase(@RequestBody PurchaseRequestDTO purchaseRequestDTO) {
+        return ResponseEntity.ok().body(productService.purchase(purchaseRequestDTO));
     }
 
     @DeleteMapping(value = "/{id}")
