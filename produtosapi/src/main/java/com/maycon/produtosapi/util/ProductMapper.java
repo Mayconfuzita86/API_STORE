@@ -4,6 +4,7 @@ import com.maycon.produtosapi.dto.request.ProductRequestDTO;
 import com.maycon.produtosapi.dto.response.ProductResponseDTO;
 import com.maycon.produtosapi.entity.Product;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +35,7 @@ public class ProductMapper {
         product.setName(productDTO.getName());
         product.setQuantity(productDTO.getQuantity());
         product.setPrice(productDTO.getPrice());
-       //product.setImage(productDTO.getImage());
+        product.setImage(productDTO.getImage());
     }
 
 }

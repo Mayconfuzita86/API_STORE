@@ -14,6 +14,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(value = "/product")
 @RequiredArgsConstructor
@@ -43,7 +45,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> register(@RequestPart("productData") ProductRequestDTO productRequestDTO,
-                                                       UriComponentsBuilder uriBuilder, @RequestPart("image") MultipartFile image) {
+                                                       UriComponentsBuilder uriBuilder, @RequestPart(name = "image", required = false) MultipartFile image) {
 
         ProductResponseDTO productResponseDTO = productService.register(productRequestDTO, image);
 
@@ -52,9 +54,11 @@ public class ProductController {
         return ResponseEntity.created(uri).body(productResponseDTO);
     }
 
+
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok().body(productService.update(id,productDTO));
+    public ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id,
+                                                     @RequestPart(name = "image", required = false) MultipartFile image) {
+        return ResponseEntity.ok().body(productService.update(id,productDTO, image));
     }
 
     @PostMapping(value = "/{id}")

@@ -42,7 +42,10 @@ public class ProductService {
 
     public ProductResponseDTO register(ProductRequestDTO productDto, MultipartFile image) {
 
-        final Image imageEntity = imageService.coreCreateImage(image);
+        Image imageEntity = null;
+
+        if(image != null)
+            imageEntity = imageService.coreCreateImage(image);
 
         Product product = productMapper.toProduct(productDto);
         product.setImage(imageEntity);
@@ -50,11 +53,17 @@ public class ProductService {
         return productMapper.toProductDTO(productRepository.save(product));
     }
 
-    public ProductResponseDTO update(Long id, ProductRequestDTO productDto) {
+    public ProductResponseDTO update(Long id, ProductRequestDTO productDto, MultipartFile image) {
+
+        Image imageEntity = null;
+
+        if(image != null)
+            imageEntity = imageService.coreCreateImage(image);
 
         Product product = returnProduct(id);
 
         productMapper.updateProductData(product,productDto);
+        product.setImage(imageEntity);
 
         return productMapper.toProductDTO(productRepository.save(product));
     }
