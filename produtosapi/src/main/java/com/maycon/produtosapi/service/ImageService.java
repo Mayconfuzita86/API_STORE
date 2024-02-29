@@ -78,8 +78,6 @@ public class ImageService {
             Path path = Paths.get(UPLOAD_DIR).resolve(uniqueFileName);
             Files.write(path, file, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
 
-            //Files.write(Paths.get(UPLOAD_DIR).resolve(uniqueFileName), file);
-
             return uniqueFileName;
 
         } catch (IOException e) {
