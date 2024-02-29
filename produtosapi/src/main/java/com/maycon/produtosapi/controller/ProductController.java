@@ -1,6 +1,7 @@
 package com.maycon.produtosapi.controller;
 
 import com.maycon.produtosapi.dto.request.ProductRequestDTO;
+import com.maycon.produtosapi.dto.request.ProductUpdateRequestDTO;
 import com.maycon.produtosapi.dto.request.PurchaseRequestDTO;
 import com.maycon.produtosapi.dto.response.ProductResponseDTO;
 import com.maycon.produtosapi.dto.response.PurchaseResponseDTO;
@@ -55,10 +56,10 @@ public class ProductController {
     }
 
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductResponseDTO> update(@RequestBody ProductRequestDTO productDTO, @PathVariable(name = "id") Long id,
-                                                     @RequestPart(name = "image", required = false) MultipartFile image) {
-        return ResponseEntity.ok().body(productService.update(id,productDTO, image));
+    @PostMapping(value = "/update")
+    public ResponseEntity<ProductResponseDTO> update(@RequestPart("productData") ProductUpdateRequestDTO productUpdateRequestDTO
+            , @RequestPart(name = "image", required = false) MultipartFile image) {
+        return ResponseEntity.ok().body(productService.update(productUpdateRequestDTO, image));
     }
 
     @PostMapping(value = "/{id}")

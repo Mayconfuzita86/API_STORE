@@ -2,6 +2,7 @@ package com.maycon.produtosapi.service;
 
 import com.maycon.produtosapi.dto.PurchaseProductDTO;
 import com.maycon.produtosapi.dto.request.ProductRequestDTO;
+import com.maycon.produtosapi.dto.request.ProductUpdateRequestDTO;
 import com.maycon.produtosapi.dto.request.PurchaseRequestDTO;
 import com.maycon.produtosapi.dto.response.ProductResponseDTO;
 import com.maycon.produtosapi.dto.response.PurchaseResponseDTO;
@@ -53,17 +54,17 @@ public class ProductService {
         return productMapper.toProductDTO(productRepository.save(product));
     }
 
-    public ProductResponseDTO update(Long id, ProductRequestDTO productDto, MultipartFile image) {
+    public ProductResponseDTO update(ProductUpdateRequestDTO productUpdateDto, MultipartFile image) {
 
         Image imageEntity = null;
 
         if(image != null)
             imageEntity = imageService.coreCreateImage(image);
 
-        Product product = returnProduct(id);
-
-        productMapper.updateProductData(product,productDto);
-        product.setImage(imageEntity);
+        Product product = returnProduct(productUpdateDto.getId());
+        productMapper.updateProductData(product,productUpdateDto);
+        if (imageEntity != null)
+            product.setImage(imageEntity);
 
         return productMapper.toProductDTO(productRepository.save(product));
     }

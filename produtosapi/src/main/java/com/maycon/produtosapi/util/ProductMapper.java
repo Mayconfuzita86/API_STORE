@@ -1,6 +1,7 @@
 package com.maycon.produtosapi.util;
 
 import com.maycon.produtosapi.dto.request.ProductRequestDTO;
+import com.maycon.produtosapi.dto.request.ProductUpdateRequestDTO;
 import com.maycon.produtosapi.dto.response.ProductResponseDTO;
 import com.maycon.produtosapi.entity.Product;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,6 @@ public class ProductMapper {
                 .name(productDTO.getName())
                 .quantity(productDTO.getQuantity())
                 .price(productDTO.getPrice())
-                .image(productDTO.getImage())
                 .build();
     }
 
@@ -30,12 +30,11 @@ public class ProductMapper {
         return productList.stream().map(ProductResponseDTO::new).collect((Collectors.toList()));
     }
 
-    public void updateProductData(Product product, ProductRequestDTO productDTO){
+    public void updateProductData(Product product, ProductUpdateRequestDTO productDTO){
 
         product.setName(productDTO.getName());
         product.setQuantity(productDTO.getQuantity());
         product.setPrice(productDTO.getPrice());
-        product.setImage(productDTO.getImage());
     }
 
 }
