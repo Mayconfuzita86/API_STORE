@@ -34,23 +34,23 @@ Requisições:
 
 findByID
 
-GET > httm://localhost:8080/product/{id}
+GET > http://localhost:8080/product/{id}
 
 findAll
 
-GET > httm://localhost:8080/product
+GET > http://localhost:8080/product
 
 register
 
-POST > httm://localhost:8080/product/register
+POST > http://localhost:8080/product/register
 
 update
 
-PUT > httm://localhost:8080/product/{id}
+PUT > http://localhost:8080/product/{id}
 
 delete
 
-DELETE > httm://localhost:8080/product/{id}
+DELETE > http://localhost:8080/product/{id}
 
 
 ---
