@@ -31,8 +31,6 @@ API RESTful desenvolvida com **Java 17** e **Spring Boot** para gerenciamento de
 
 ---
 
-## 🔧 Configuração e Execução
-
-1. Clone o repositório:
+Clone o repositório:
    ```bash
    git clone [https://github.com/Mayconfuzita86/API_STORE.git](https://github.com/Mayconfuzita86/API_STORE.git)
